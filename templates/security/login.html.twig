@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<div class="container d-flex align-items-center" > 
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4 formulaire">
+            <div class="form-group">
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    {% if app.user %}
+                        <div class="mb-3">
+                            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        </div>
+                    {% endif %}
+
+                    <h1 class="h3 mb-3 font-weight-bold">Please sign in</h1>
+                    <label for="inputEmail">Login</label>
+                    <input type="text" value="{{ last_username }}" name="login" id="inputLogin" class="form-control" required autofocus>
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            </div>
+
+                    <input type="hidden" name="_csrf_token"
+                        value="{{ csrf_token('authenticate') }}"
+                    >
+                    <div class="form-group">
+                        <button class="btn btn-lg mt-2" type="submit">
+                            Sign in
+                        </button>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+<style>
+    body{
+        background-color: #bae4e5;
+        display: flex;
+        align-items: center;
+    }
+    .btn{
+        background-color:#ede99d !important;
+    }
+    .formulaire{
+        background-color: #4193a9; !important;
+        border-radius: 12px; 
+        padding: 30px !important; 
+    }
+</style>
+
+
+
+{% endblock %}
